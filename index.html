@@ -34,6 +34,10 @@
       --hover: var(--hover-light);
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -78,7 +82,7 @@
     }
 
     section {
-      padding: 80px 20px;
+      padding: 100px 20px 80px; /* top space for navbar */
       display: none;
       animation: fade 0.3s ease-in-out;
     }
@@ -220,7 +224,7 @@
       }
 
       section {
-        padding: 60px 15px;
+        padding: 80px 15px 60px;
       }
 
       .lead {
@@ -302,7 +306,8 @@
         new bootstrap.Collapse(nav).hide();
         hamburger.classList.remove('open');
       }
-      window.scrollTo(0, 0);
+
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
       AOS.refresh();
     }
 
@@ -328,7 +333,7 @@
       }
     });
 
-    // Toggle hamburger icon state
+    // Toggle hamburger icon animation
     document.getElementById('hamburger').addEventListener('click', function () {
       this.classList.toggle('open');
     });
