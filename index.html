@@ -7,18 +7,185 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  <link href="https://cdn.plyr.io/3.7.8/plyr.css" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* (keep all existing styles as you already have them) */
+    :root {
+      --bg-light: #f9f9f9;
+      --text-light: #222;
+      --bg-dark: #000;
+      --text-dark: #fff;
+      --muted-light: #666;
+      --muted-dark: #aaa;
+      --hover-light: #000;
+      --hover-dark: #ccc;
+    }
+
+    html[data-theme='dark'] {
+      --bg: var(--bg-dark);
+      --text: var(--text-dark);
+      --muted: var(--muted-dark);
+      --hover: var(--hover-dark);
+    }
+
+    html[data-theme='light'] {
+      --bg: var(--bg-light);
+      --text: var(--text-light);
+      --muted: var(--muted-light);
+      --hover: var(--hover-light);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      background-color: var(--bg) !important;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+    }
+
+    .nav-link {
+      color: var(--text) !important;
+      font-weight: 400;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: var(--hover) !important;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(20deg);
+    }
+
+    .theme-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    section {
+      padding: 80px 20px;
+      display: none;
+      animation: fade 0.3s ease-in-out;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    h2 {
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    #works h2 {
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      color: var(--muted);
+    }
+
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+    }
+
+    .lead {
+      font-size: 1.1rem;
+      max-width: 720px;
+      margin: auto;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .video-block {
+      margin-bottom: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .video-title {
+      margin-top: 12px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--hover);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      .video-block iframe,
+      .js-player {
+        height: 240px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .profile-pic {
+        width: 100px;
+        height: 100px;
+      }
+
+      section {
+        padding: 60px 15px;
+      }
+
+      .lead {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+    }
   </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid px-4">
       <a class="navbar-brand nav-link" onclick="showSection('works')">Viktors Morozs</a>
-      <button class="hamburger d-lg-none" id="hamburger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span></span><span></span><span></span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
@@ -36,7 +203,14 @@
   <section id="works" class="active text-center">
     <div class="container">
       <h2 data-aos="fade-up">My Works</h2>
-      <div id="video-container"></div>
+      <div class="video-block" data-aos="fade-up">
+        <div class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="3TFHCuoluhw"></div>
+        <div class="video-title">Spender - Music Video</div>
+      </div>
+      <div class="video-block" data-aos="fade-up">
+        <div class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="UEekrH0Rs7Y"></div>
+        <div class="video-title">RacerWorldwide - Creative campaign</div>
+      </div>
     </div>
   </section>
 
@@ -73,12 +247,10 @@
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
       const nav = document.getElementById('navbarNav');
-      const hamburger = document.getElementById('hamburger');
       if (nav.classList.contains('show')) {
         new bootstrap.Collapse(nav).hide();
-        hamburger.classList.remove('open');
       }
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      window.scrollTo(0, 0);
       AOS.refresh();
     }
 
@@ -94,43 +266,17 @@
 
     document.addEventListener('click', function (event) {
       const nav = document.getElementById('navbarNav');
-      const hamburger = document.getElementById('hamburger');
+      const toggler = document.querySelector('.navbar-toggler');
       if (nav.classList.contains('show') &&
           !nav.contains(event.target) &&
-          !hamburger.contains(event.target)) {
+          !toggler.contains(event.target)) {
         new bootstrap.Collapse(nav).hide();
-        hamburger.classList.remove('open');
       }
-    });
-
-    document.getElementById('hamburger').addEventListener('click', function () {
-      this.classList.toggle('open');
     });
 
     lucide.createIcons();
     AOS.init({ once: true });
-
-    fetch('videos.json')
-      .then(res => res.json())
-      .then(videos => {
-        const container = document.getElementById('video-container');
-        videos.forEach((video, index) => {
-          const block = document.createElement('div');
-          block.className = 'video-block';
-          block.setAttribute('data-aos', 'fade-up');
-          const player = document.createElement('div');
-          player.className = 'js-player';
-          player.setAttribute('data-plyr-provider', 'youtube');
-          player.setAttribute('data-plyr-embed-id', video.youtubeId);
-          const title = document.createElement('div');
-          title.className = 'video-title';
-          title.innerText = video.title;
-          block.appendChild(player);
-          block.appendChild(title);
-          container.appendChild(block);
-        });
-        new Plyr('.js-player');
-      });
+    new Plyr('.js-player');
   </script>
 </body>
 </html>
