@@ -157,9 +157,8 @@
     }
 
     @media (max-width: 768px) {
-      .video-block iframe,
       .js-player {
-        height: 240px;
+        height: auto;
       }
     }
 
@@ -204,12 +203,16 @@
     <div class="container">
       <h2 data-aos="fade-up">My Works</h2>
       <div class="video-block" data-aos="fade-up">
-        <div class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="3TFHCuoluhw"></div>
+        <div class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="3TFHCuoluhw" data-poster="https://img.youtube.com/vi/3TFHCuoluhw/maxresdefault.jpg"></div>
         <div class="video-title">Spender - Music Video</div>
       </div>
       <div class="video-block" data-aos="fade-up">
-        <div class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="UEekrH0Rs7Y"></div>
+        <div class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="UEekrH0Rs7Y" data-poster="https://img.youtube.com/vi/UEekrH0Rs7Y/maxresdefault.jpg"></div>
         <div class="video-title">RacerWorldwide - Creative campaign</div>
+      </div>
+      <div class="video-block" data-aos="fade-up">
+        <div class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="3TFHCuoluhw" data-poster="https://img.youtube.com/vi/3TFHCuoluhw/maxresdefault.jpg"></div>
+        <div class="video-title">Spender - Music Video</div>
       </div>
     </div>
   </section>
@@ -276,7 +279,13 @@
 
     lucide.createIcons();
     AOS.init({ once: true });
-    new Plyr('.js-player');
+    document.addEventListener("DOMContentLoaded", function () {
+      const players = document.querySelectorAll('.js-player');
+      players.forEach(p => new Plyr(p, {
+        fullscreen: { enabled: true, fallback: true },
+        youtube: { noCookie: true, rel: 0 },
+      }));
+    });
   </script>
 </body>
 </html>
